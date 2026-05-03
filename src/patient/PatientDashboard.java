@@ -17,7 +17,7 @@ public class PatientDashboard extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setBackground(UITheme.BG_DARK);
+        getContentPane().setBackground(UITheme.BG_PAGE);
         setLayout(null);
         buildUI();
         setVisible(true);
@@ -31,8 +31,8 @@ public class PatientDashboard extends JFrame {
         topBar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, UITheme.STAT_GREEN));
         add(topBar);
 
-        topBar.add(UITheme.createLabel("HMS", new Font("Segoe UI", Font.BOLD, 18),
-                UITheme.STAT_GREEN, 22, 22, 60, 28));
+        topBar.add(UITheme.createLabel("🙍🏼‍♂️", new Font("Segoe UI Emoji", Font.PLAIN, 28),
+                UITheme.STAT_GREEN, 22, 14, 46, 44));
         topBar.add(UITheme.createLabel("Patient Portal",
                 UITheme.FONT_HEADER, UITheme.TEXT_PRIMARY, 90, 12, 400, 28));
         topBar.add(UITheme.createLabel("Welcome back, " + patientName,

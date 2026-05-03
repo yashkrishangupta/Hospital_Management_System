@@ -22,7 +22,7 @@ public class ViewPrescription extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setBackground(UITheme.BG_DARK);
+        getContentPane().setBackground(UITheme.BG_PAGE);
         setLayout(null);
         buildUI(); loadMyAppointments(); setVisible(true);
     }

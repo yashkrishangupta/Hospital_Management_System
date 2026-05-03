@@ -18,7 +18,7 @@ public class PatientProfile extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setBackground(UITheme.BG_DARK);
+        getContentPane().setBackground(UITheme.BG_PAGE);
         setLayout(null);
         buildUI();
         loadProfile();
@@ -46,31 +46,31 @@ public class PatientProfile extends JFrame {
 
         infoCard.add(UITheme.createLabel("Full Name", UITheme.FONT_LABEL, UITheme.TEXT_MUTED, lx, y, 200, 22));
         nameField = UITheme.createField(lx, y + 24, fw, 36);
-        nameField.setEditable(false); nameField.setBackground(UITheme.BG_DARK);
+        nameField.setEditable(false); nameField.setBackground(UITheme.BG_PAGE);
         infoCard.add(nameField);
         y += gap;
 
         // Age + Gender on same row
         infoCard.add(UITheme.createLabel("Age", UITheme.FONT_LABEL, UITheme.TEXT_MUTED, lx, y, 100, 22));
         ageField = UITheme.createField(lx, y + 24, 200, 36);
-        ageField.setEditable(false); ageField.setBackground(UITheme.BG_DARK);
+        ageField.setEditable(false); ageField.setBackground(UITheme.BG_PAGE);
         infoCard.add(ageField);
 
         infoCard.add(UITheme.createLabel("Gender", UITheme.FONT_LABEL, UITheme.TEXT_MUTED, lx + 230, y, 100, 22));
         genderField = UITheme.createField(lx + 230, y + 24, 225, 36);
-        genderField.setEditable(false); genderField.setBackground(UITheme.BG_DARK);
+        genderField.setEditable(false); genderField.setBackground(UITheme.BG_PAGE);
         infoCard.add(genderField);
         y += gap;
 
         infoCard.add(UITheme.createLabel("Contact", UITheme.FONT_LABEL, UITheme.TEXT_MUTED, lx, y, 200, 22));
         contactField = UITheme.createField(lx, y + 24, fw, 36);
-        contactField.setEditable(false); contactField.setBackground(UITheme.BG_DARK);
+        contactField.setEditable(false); contactField.setBackground(UITheme.BG_PAGE);
         infoCard.add(contactField);
         y += gap;
 
         infoCard.add(UITheme.createLabel("Username", UITheme.FONT_LABEL, UITheme.TEXT_MUTED, lx, y, 200, 22));
         usernameField = UITheme.createField(lx, y + 24, fw, 36);
-        usernameField.setEditable(false); usernameField.setBackground(UITheme.BG_DARK);
+        usernameField.setEditable(false); usernameField.setBackground(UITheme.BG_PAGE);
         infoCard.add(usernameField);
 
         // ── Password change card — right half ─────────────────────────

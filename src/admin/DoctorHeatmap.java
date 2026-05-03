@@ -36,7 +36,7 @@ public class DoctorHeatmap extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setBackground(UITheme.BG_DARK);
+        getContentPane().setBackground(UITheme.BG_PAGE);
         setLayout(null);
         buildUI();
         loadDoctors();
@@ -262,8 +262,8 @@ public class DoctorHeatmap extends JFrame {
             }
 
             // Empty cells
-            g2.setColor(new Color(UITheme.BG_DARK.getRed(),
-                    UITheme.BG_DARK.getGreen(), UITheme.BG_DARK.getBlue(), 180));
+            g2.setColor(new Color(UITheme.BG_PAGE.getRed(),
+                    UITheme.BG_PAGE.getGreen(), UITheme.BG_PAGE.getBlue(), 180));
             // pre-month
             for (int c = 0; c < startCol; c++) {
                 g2.fillRect(c * cellW + 1, headerH + 1, cellW - 2, cellH - 2);
@@ -357,7 +357,7 @@ public class DoctorHeatmap extends JFrame {
 
     // ── Inner: color legend bar ───────────────────────────────────────
     private static class LegendPanel extends JPanel {
-        LegendPanel() { setBackground(UITheme.BG_DARK); }
+        LegendPanel() { setBackground(UITheme.BG_PAGE); }
 
         @Override
         protected void paintComponent(Graphics g) {

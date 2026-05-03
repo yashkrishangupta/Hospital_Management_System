@@ -19,7 +19,7 @@ public class DoctorProfile extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setBackground(UITheme.BG_DARK);
+        getContentPane().setBackground(UITheme.BG_PAGE);
         setLayout(null);
         buildUI(); loadProfile(); setVisible(true);
     }
@@ -39,13 +39,13 @@ public class DoctorProfile extends JFrame {
 
         int lx = 18, fw = 455, y = 50, gap = 64;
         infoCard.add(UITheme.createLabel("Full Name", UITheme.FONT_LABEL, UITheme.TEXT_MUTED, lx, y, 200, 22));
-        nameField = UITheme.createField(lx, y + 24, fw, 36); nameField.setEditable(false); nameField.setBackground(UITheme.BG_DARK); infoCard.add(nameField); y += gap;
+        nameField = UITheme.createField(lx, y + 24, fw, 36); nameField.setEditable(false); nameField.setBackground(UITheme.BG_PAGE); infoCard.add(nameField); y += gap;
         infoCard.add(UITheme.createLabel("Specialization", UITheme.FONT_LABEL, UITheme.TEXT_MUTED, lx, y, 200, 22));
-        specField = UITheme.createField(lx, y + 24, fw, 36); specField.setEditable(false); specField.setBackground(UITheme.BG_DARK); infoCard.add(specField); y += gap;
+        specField = UITheme.createField(lx, y + 24, fw, 36); specField.setEditable(false); specField.setBackground(UITheme.BG_PAGE); infoCard.add(specField); y += gap;
         infoCard.add(UITheme.createLabel("Contact", UITheme.FONT_LABEL, UITheme.TEXT_MUTED, lx, y, 110, 22));
-        contactField = UITheme.createField(lx, y + 24, 215, 36); contactField.setEditable(false); contactField.setBackground(UITheme.BG_DARK); infoCard.add(contactField);
+        contactField = UITheme.createField(lx, y + 24, 215, 36); contactField.setEditable(false); contactField.setBackground(UITheme.BG_PAGE); infoCard.add(contactField);
         infoCard.add(UITheme.createLabel("Username", UITheme.FONT_LABEL, UITheme.TEXT_MUTED, lx + 240, y, 110, 22));
-        usernameField = UITheme.createField(lx + 240, y + 24, 215, 36); usernameField.setEditable(false); usernameField.setBackground(UITheme.BG_DARK); infoCard.add(usernameField);
+        usernameField = UITheme.createField(lx + 240, y + 24, 215, 36); usernameField.setEditable(false); usernameField.setBackground(UITheme.BG_PAGE); infoCard.add(usernameField);
 
         // Password change card — right half
         JPanel passCard = UITheme.createCard(530, 92, 474, 260);

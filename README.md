@@ -1,49 +1,51 @@
-# 🏥 Hospital Management System
+# Hospital Management System
 
-> A Java Swing + JDBC desktop application with three roles — Admin, Doctor, and Patient — featuring a modern dark-themed UI, live statistics, appointment heatmap, and prescription management.
-
----
-
-## 📌 Table of Contents
-
-1. [Project Overview](#-project-overview)
-2. [Tech Stack](#-tech-stack)
-3. [Login Credentials](#-login-credentials)
-4. [Project Structure](#-project-structure)
-5. [Database Schema](#-database-schema)
-6. [Features by Role](#-features-by-role)
-7. [Setup Instructions](#-setup-instructions)
-8. [How to Run](#-how-to-run)
-9. [UI Design System](#-ui-design-system)
-10. [Sample Data](#-sample-data)
+> A Java Swing + JDBC desktop application with three roles — Admin, Doctor, and Patient — featuring live statistics, doctor availability heatmap, and full prescription management.
 
 ---
 
-## 📖 Project Overview
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [Tech Stack](#tech-stack)
+3. [Login Credentials](#login-credentials)
+4. [Project Structure](#project-structure)
+5. [Database Schema](#database-schema)
+6. [Features by Role](#features-by-role)
+7. [Setup Instructions](#setup-instructions)
+8. [How to Run](#how-to-run)
+9. [UI Design System](#ui-design-system)
+10. [Sample Data](#sample-data)
+
+---
+
+## Project Overview
 
 The Hospital Management System is a college capstone desktop application built entirely in Java. It supports three user roles with dedicated dashboards, all connected to a MySQL database via JDBC using PreparedStatements throughout.
 
 **Unique features included:**
-- 📊 Live statistics dashboard (Admin)
-- 🗓️ Doctor availability heatmap with hover tooltips (Admin + Doctor)
-- 💊 Full prescription writer with medicine table and doctor notes (Admin + Doctor)
+- Live statistics dashboard (Admin)
+- Doctor availability heatmap with hover tooltips (Admin + Doctor)
+- Full prescription writer with medicine table, notes, right-click delete, and full prescription delete (Admin + Doctor)
+- Delete functionality for Doctors, Patients, and Appointments with confirmation dialogs
+- Patient and Doctor profile pages with password change
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-| Layer       | Technology                          |
-|-------------|-------------------------------------|
-| Language    | Java 11+                            |
-| UI          | Java Swing (JFrame, JTable, JPanel) |
-| Database    | MySQL 8.x                           |
-| Connectivity| JDBC with PreparedStatement         |
-| Driver      | mysql-connector-j-8.x.jar           |
-| Build       | Manual javac / run.sh / run.bat     |
+| Layer        | Technology                          |
+|--------------|-------------------------------------|
+| Language     | Java 11+                            |
+| UI           | Java Swing (JFrame, JTable, JPanel) |
+| Database     | MySQL 8.x                           |
+| Connectivity | JDBC with PreparedStatement         |
+| Driver       | mysql-connector-j-8.x.jar           |
+| Build        | Manual javac / run.sh / run.bat     |
 
 ---
 
-## 🔐 Login Credentials
+## Login Credentials
 
 ### Admin (hardcoded)
 | Username | Password |
@@ -51,14 +53,14 @@ The Hospital Management System is a college capstone desktop application built e
 | `admin`  | `1234`   |
 
 ### Doctors (stored in database)
-| Username    | Password | Doctor Name   | Specialization   |
-|-------------|----------|---------------|------------------|
-| `dr.priya`  | `1234`   | Priya Sharma  | Cardiologist     |
-| `dr.rahul`  | `1234`   | Rahul Mehta   | Neurologist      |
-| `dr.anjali` | `1234`   | Anjali Gupta  | Orthopedics      |
-| `dr.vikram` | `1234`   | Vikram Nair   | General Physician|
-| `dr.sneha`  | `1234`   | Sneha Patel   | Dermatologist    |
-| `dr.arjun`  | `1234`   | Arjun Reddy   | Pediatrician     |
+| Username    | Password | Doctor Name    | Specialization    |
+|-------------|----------|----------------|-------------------|
+| `dr.rakshit`    | `1234`   | Rakshit Jha        | Cardiologist      |
+| `dr.aman`       | `1234`   | Aman Sundriyal     | Neurologist       |
+| `dr.vishvadeep` | `1234`   | Vishvadeep Bhatia  | Gynecologist      |
+| `dr.devansh`    | `1234`   | Devansh Garg       | General Physician |
+| `dr.mohit`      | `1234`   | Mohit Suyal        | Dermatologist     |
+| `dr.aryan`      | `1234`   | Aryan Mishra       | Pediatrician      |
 
 ### Patient (stored in database)
 | Username      | Password |
@@ -69,102 +71,110 @@ The Hospital Management System is a college capstone desktop application built e
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-HospitalManagement/                          ← Project root
+HospitalManagement/
 │
-├── src/ 
-│   ├── app\
-│   │   ├── Main.java                       ← Entry point — sets L&F, launches Login      
-│   │   └── Login.java                      ← 3-role login screen (Admin / Doctor / Patient)
-│   ├── util\
-│   │     ├── DBConnection.java             ← MySQL JDBC connection helper
-│   │     └── UITheme.java                 ← Design system (colors, fonts, component factories)                    
-│   │                       
+├── src/
 │   │
-│   ├── admin/                               ← package admin  (9 files)
-│   │   ├── AdminDashboard.java              ← Dashboard — live stats + 8 menu buttons
-│   │   ├── AddDoctor.java                   ← Form: add doctor + set login credentials
-│   │   ├── ViewDoctors.java                 ← JTable of all registered doctors
-│   │   ├── AddPatient.java                  ← Form: manually register a patient
-│   │   ├── ViewPatients.java                ← JTable of all patient records
-│   │   ├── ViewAllAppointments.java         ← Full appointment log (all patients & doctors)
-│   │   ├── SearchPanel.java                 ← Keyword search for patients & doctors
-│   │   ├── DoctorHeatmap.java               ← ⭐ Monthly calendar heatmap with hover tooltips
-│   │   └── PrescriptionWriter.java          ← ⭐ Write prescriptions for any appointment
+│   │   # Core (4 files)
+│   ├── app/
+│   │   ├── Main.java                        ← Entry point
+│   │   └── Login.java                       ← 3-role login screen
 │   │
-│   ├── doctor/                              ← package doctor  (7 files)
-│   │   ├── DoctorDashboard.java             ← Dashboard — personal stats + 6 menu buttons
-│   │   ├── MyAppointments.java              ← Own appointments with status filter
-│   │   ├── UpdateAppointmentStatus.java     ← Confirm / Cancel / Reset appointment status
-│   │   ├── DoctorPrescriptionWriter.java    ← Write prescriptions (own appointments only)
-│   │   ├── MyPatients.java                  ← All unique patients sorted by visit count
-│   │   ├── DoctorScheduleChart.java         ← Heatmap pre-filtered to this doctor
-│   │   └── DoctorProfile.java               ← View profile info + change password
+│   ├── util/
+│   │   ├── DBConnection.java                ← MySQL JDBC connection helper
+│   │   └── UITheme.java                     ← Design system (colors, fonts, factories)
 │   │
-│   └── patient/                             ← package patient  (5 files)
-│       ├── Register.java                    ← Self-registration with password confirmation
-│       ├── PatientDashboard.java            ← Dashboard — 4 action cards
-│       ├── BookAppointment.java             ← Book via doctor dropdown + date picker
-│       ├── ViewAppointments.java            ← Own appointments with colour-coded status
-│       └── ViewPrescription.java            ← View medicines prescribed by doctor
+│   │   # package admin (9 files)
+│   ├── admin/
+│   │   ├── AdminDashboard.java              ← Live stats + 8 menu buttons
+│   │   ├── AddDoctor.java                   ← Add doctor with login credentials
+│   │   ├── ViewDoctors.java                 ← JTable + Delete Doctor button
+│   │   ├── AddPatient.java                  ← Register a patient
+│   │   ├── ViewPatients.java                ← JTable + Delete Patient button
+│   │   ├── ViewAllAppointments.java         ← Full log + Delete Appointment button
+│   │   ├── SearchPanel.java                 ← Keyword search
+│   │   ├── DoctorHeatmap.java               ← Monthly calendar heatmap
+│   │   └── PrescriptionWriter.java          ← Write / delete prescriptions
+│   │
+│   │   # package doctor (7 files)
+│   ├── doctor/
+│   │   ├── DoctorDashboard.java             ← Personal stats + 6 menu buttons
+│   │   ├── MyAppointments.java              ← Filterable appointment table
+│   │   ├── UpdateAppointmentStatus.java     ← Confirm / Cancel / Pending
+│   │   ├── DoctorPrescriptionWriter.java    ← Write / delete own prescriptions
+│   │   ├── MyPatients.java                  ← Unique patients + visit count
+│   │   ├── DoctorScheduleChart.java         ← Heatmap filtered to this doctor
+│   │   └── DoctorProfile.java               ← Profile view + change password
+│   │
+│   │   # package patient (6 files)
+│   └── patient/
+│       ├── Register.java                    ← Self-registration
+│       ├── PatientDashboard.java            ← 4 action cards
+│       ├── BookAppointment.java             ← Doctor dropdown + date picker
+│       ├── ViewAppointments.java            ← Colour-coded appointment status
+│       ├── ViewPrescription.java            ← View medicines + doctor notes
+│       └── PatientProfile.java              ← Profile view + change password
 │
-├── lib/                                     ← JDBC driver goes here (create manually)
-│   └── mysql-connector-j-9.6.0.jar         ← Download from dev.mysql.com
+├── lib/
+│   └── mysql-connector-j-8.0.33.jar        ← Place JDBC driver here
 │
-├── out/                                     ← Compiled .class files (auto-created on build)
+├── out/                                     ← Compiled .class files (auto-created)
 │
-├── setup.sql                                ← DB schema + 6 sample doctors + 1 patient
-├── run.bat                                  ← Build & run script (Windows)
-└── README.md                                ← This file
+├── setup.sql                                ← DB schema + seed data
+├── run.sh                                   ← Linux / macOS build & run
+├── run.bat                                  ← Windows build & run
+└── README.md
 ```
 
-### File count summary
+### File count
 
-| Package       | Files | Description                        |
-|---------------|-------|------------------------------------|
-| root `src/`   | 4     | Main, Login, DBConnection, UITheme |
-| `admin/`      | 9     | Full admin management suite        |
-| `doctor/`     | 7     | Doctor portal and tools            |
-| `patient/`    | 5     | Patient portal                     |
-| **Total**     | **25**| Java source files                  |
+| Package    | Files | Contents |
+|------------|-------|---------|
+| `app/`     | 2     | Main, Login |
+| `util/`    | 2     | DBConnection, UITheme |
+| `admin/`   | 9     | Full admin management suite |
+| `doctor/`  | 7     | Doctor portal and tools |
+| `patient/` | 6     | Patient portal |
+| **Total**  | **26**| Java source files |
 
 ---
 
-## 🗄️ Database Schema
+## Database Schema
 
 ```
 hospital_db
 │
 ├── patients
-│   ├── id          INT  AUTO_INCREMENT  PK
+│   ├── id          INT   AUTO_INCREMENT  PK
 │   ├── name        VARCHAR(100)
 │   ├── age         INT
 │   ├── gender      VARCHAR(10)
 │   ├── contact     VARCHAR(20)
-│   ├── username    VARCHAR(50)   UNIQUE
+│   ├── username    VARCHAR(50)  UNIQUE
 │   └── password    VARCHAR(100)
 │
 ├── doctors
-│   ├── id             INT  AUTO_INCREMENT  PK
+│   ├── id             INT   AUTO_INCREMENT  PK
 │   ├── name           VARCHAR(100)
 │   ├── specialization VARCHAR(100)
 │   ├── contact        VARCHAR(20)
-│   ├── username       VARCHAR(50)   UNIQUE
+│   ├── username       VARCHAR(50)  UNIQUE
 │   └── password       VARCHAR(100)
 │
 ├── appointments
-│   ├── id          INT  AUTO_INCREMENT  PK
-│   ├── patient_id  INT  FK → patients.id
-│   ├── doctor_id   INT  FK → doctors.id
+│   ├── id          INT   AUTO_INCREMENT  PK
+│   ├── patient_id  INT   FK → patients.id  CASCADE
+│   ├── doctor_id   INT   FK → doctors.id   CASCADE
 │   ├── date        DATE
-│   └── status      VARCHAR(20)   DEFAULT 'Pending'
+│   └── status      VARCHAR(20)  DEFAULT 'Pending'
 │                   [ Pending | Confirmed | Cancelled ]
 │
 └── prescriptions
-    ├── id              INT  AUTO_INCREMENT  PK
-    ├── appointment_id  INT  FK → appointments.id
+    ├── id              INT   AUTO_INCREMENT  PK
+    ├── appointment_id  INT   FK → appointments.id  CASCADE
     ├── medicine        VARCHAR(150)
     ├── dosage          VARCHAR(100)
     ├── instructions    VARCHAR(255)
@@ -180,111 +190,117 @@ hospital_db
 
 ---
 
-## ✨ Features by Role
+## Features by Role
 
-### 🛡️ Admin
+### Admin
 | Feature | Description |
 |---------|-------------|
-| Live Stats Dashboard | Real-time count of doctors, patients, total appointments, and today's appointments — auto-refreshes on every save action |
-| Add Doctor | Register a doctor with name, specialization, contact, and login credentials |
-| View Doctors | Searchable JTable of all registered doctors |
+| Live Stats Dashboard | Real-time count of doctors, patients, total and today's appointments — refreshes on every save |
+| Add Doctor | Register a doctor with name, specialization, contact, username, password |
+| View Doctors | JTable of all doctors — select a row and click Delete with confirmation |
 | Add Patient | Manually register a patient account |
-| View Patients | JTable showing all patient records |
-| View All Appointments | Complete appointment log across all patients and doctors with status column |
-| Search Panel | Keyword search for patients (by name/username) and doctors (by name/specialization) |
-| Doctor Heatmap ⭐ | Monthly calendar view with color-coded appointment load per day. Supports per-doctor filtering and hover tooltips showing date + count |
-| Prescription Writer ⭐ | Select any appointment, add medicine rows (name + dosage + instructions), write diagnosis notes, and save — overwrites on re-save |
+| View Patients | JTable of all patients — select a row and click Delete with confirmation |
+| View All Appointments | Full appointment log with colour-coded status — select and delete |
+| Search Panel | Keyword search for patients by name/username and doctors by name/specialization |
+| Doctor Heatmap | Monthly calendar heatmap with per-doctor filter and hover tooltips |
+| Prescription Writer | Write prescriptions — add medicines, right-click to remove rows, clear notes, delete entire prescription |
 
----
-
-### 👨‍⚕️ Doctor
+### Doctor
 | Feature | Description |
 |---------|-------------|
-| Personal Stats Dashboard | Shows total appointments, today's count, pending count, and confirmed count — all scoped to this doctor only |
-| My Appointments | Filterable table: All / Pending / Confirmed / Cancelled / Today |
-| Update Appointment Status | Select a row and click Confirm ✔, Cancel ✖, or Reset to Pending — updates DB immediately |
-| Write Prescription | Same prescription writer as admin but shows only this doctor's appointments |
-| My Patients | All unique patients who have visited, sorted by visit count |
-| My Schedule Chart | Opens the heatmap pre-filtered to this doctor's bookings |
-| My Profile | Read-only view of name, specialization, contact, username — plus change password with current password verification |
+| Personal Stats Dashboard | Total, today, pending, confirmed appointment counts — scoped to this doctor |
+| My Appointments | Filter by All / Pending / Confirmed / Cancelled / Today |
+| Update Appointment Status | Confirm, Cancel, or reset to Pending with one click |
+| Write Prescription | Add medicines with dosage and instructions — right-click to delete rows, clear notes, or delete full prescription |
+| My Patients | All unique patients with total visit count |
+| My Schedule Chart | Heatmap pre-filtered to this doctor's appointments |
+| My Profile | View name, specialization, contact, username — change password with verification |
 
----
-
-### 🧑 Patient
+### Patient
 | Feature | Description |
 |---------|-------------|
-| Self Register | Create account with name, age, gender, contact, username, and password (with confirmation) |
+| Self Register | Name, age, gender, contact, username, password with confirmation |
 | Login | Authenticate against the patients table |
-| Book Appointment | Choose a doctor from a live dropdown and enter a date — past dates are rejected |
-| My Appointments | Personal appointment list with color-coded status: 🟠 Pending · 🟢 Confirmed · 🔴 Cancelled |
-| My Prescriptions | Select an appointment to view all medicines (name, dosage, instructions) and doctor's notes |
+| Book Appointment | Select a doctor and date — past dates are rejected |
+| My Appointments | Colour-coded status: Pending / Confirmed / Cancelled |
+| My Prescriptions | View medicines, dosage, instructions, and doctor notes per appointment |
+| My Profile | View personal info — change password with current password verification |
 
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 ### Step 1 — Install Prerequisites
-- **Java JDK 11+** → https://adoptium.net/
-- **MySQL Server 8.x** → https://dev.mysql.com/downloads/mysql/
+- Java JDK 11+ → https://adoptium.net/
+- MySQL Server 8.x → https://dev.mysql.com/downloads/mysql/
 
 ### Step 2 — Create the Database
-Open a terminal and run:
 ```bash
 mysql -u root -p < setup.sql
 ```
-Or open **MySQL Workbench**, paste the contents of `setup.sql`, and execute. This creates the database, all 4 tables, and inserts 6 sample doctors + 1 test patient.
+Or open MySQL Workbench, paste `setup.sql`, and execute. Creates all 4 tables and inserts 6 sample doctors and 1 test patient.
 
 ### Step 3 — Add the JDBC Driver
-1. Download **MySQL Connector/J** from https://dev.mysql.com/downloads/connector/j/
-2. Create a folder named `lib/` in the project root
-3. Place the downloaded `.jar` inside it
-4. Rename the file (or update the build script) to: `mysql-connector-j-8.0.33.jar`
+1. Download MySQL Connector/J from https://dev.mysql.com/downloads/connector/j/
+2. Create a `lib/` folder in the project root
+3. Place the jar inside and name it `mysql-connector-j-8.0.33.jar`
 
 ### Step 4 — Configure Database Password
-Open `src/DBConnection.java` and update line 5:
+Open `src/util/DBConnection.java` and set:
 ```java
-private static final String PASSWORD = "your_mysql_root_password";
+private static final String PASSWORD = "your_mysql_password";
 ```
-If your MySQL user is not `root`, also update the `USER` field.
 
 ---
 
-## ▶️ How to Run
+## How to Run
 
-### Linux / macOS
-
+**Windows:**
 ```
 run.bat
 ```
 
-Script compile all 25 Java files and launch `Main.java` in one step.
+**Linux / macOS:**
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+Both scripts compile all 26 Java files and launch `app.Main`.
 
 ---
 
-## 🎨 UI Design System
+## UI Design System
 
-All styling lives in `UITheme.java`. It provides factory methods so every screen uses the same colors, fonts, and components.
+All styling is centralized in `src/util/UITheme.java`.
 
-**Color Palette:**
+**Theme: Classic Hospital — Blue & White**
 
-| Token | Hex | Used For |
-|-------|-----|----------|
-| `BG_DARK` | `#0A192F` | Main window background |
-| `BG_CARD` | `#112848` | Card / panel surfaces |
-| `BG_INPUT` | `#163250` | Text field backgrounds |
-| `ACCENT` | `#00D2BE` | Teal — primary buttons, borders |
-| `STAT_GREEN` | `#00DC82` | Patient role, confirmed status |
-| `STAT_BLUE` | `#50A0FF` | Doctor role, info elements |
-| `STAT_ORANGE` | `#FF8C3C` | Today's count, warnings |
-| `ACCENT_DANGER` | `#FF505A` | Danger buttons, cancelled status |
+| Token | Color (RGB) | Used For |
+|-------|-------------|---------|
+| `BG_PAGE` | `(236, 245, 255)` | Main window background |
+| `BG_CARD` | `(255, 255, 255)` | Card / panel surfaces |
+| `BG_INPUT` | `(250, 253, 255)` | Input field backgrounds |
+| `ACCENT` | `(0, 102, 204)` | Primary buttons, borders, highlights |
+| `ACCENT_HOVER` | `(0, 76, 153)` | Button hover state |
+| `ACCENT_DANGER` | `(204, 0, 0)` | Delete / danger buttons |
+| `ACCENT_WARN` | `(230, 130, 0)` | Warning messages |
+| `STAT_GREEN` | `(0, 150, 90)` | Confirmed status, patient stats |
+| `STAT_BLUE` | Same as ACCENT | Doctor role stats |
+| `STAT_ORANGE` | `(220, 120, 0)` | Today count |
+| `TEXT_PRIMARY` | `(28, 28, 30)` | All body text |
+| `TEXT_MUTED` | `(95, 110, 130)` | Labels, hints, subtitles |
+| `BORDER_COLOR` | `(190, 215, 240)` | All borders |
+| `BLUE_DARK` | `(0, 60, 130)` | Section headings |
+| `SOFT_BLUE` | `(220, 235, 255)` | Hover tint on secondary buttons |
 
-**Font:** Segoe UI throughout — Bold for headers and labels, Plain for body text.
+**Font:** Segoe UI Emoji throughout — supports emoji rendering on Windows. Bold for headers and labels, Plain for body text.
 
 ---
 
-## 📋 Sample Data
+## Sample Data
 
-After running `setup.sql`, the database contains:
+After running `setup.sql`:
 
 **6 Doctors** (all password: `1234`):
 - Dr. Rakshit Jha — Cardiologist (`dr.rakshit`)
@@ -299,14 +315,16 @@ After running `setup.sql`, the database contains:
 
 ---
 
-## 📝 Notes for Evaluators
+## Notes for Evaluators
 
 - All database queries use `PreparedStatement` — no raw SQL string concatenation
 - `DBConnection.java` is the single source of truth for DB connectivity
-- Each role's files are in their own Java package (`admin`, `doctor`, `patient`)
-- `UITheme.java` acts as a design system — removing the need to repeat colors/fonts across 25 files
-- Appointment status flows: Patient books → `Pending` → Doctor sets → `Confirmed` or `Cancelled`
+- Each role's files are organized in their own Java package (`admin`, `doctor`, `patient`, `util`, `app`)
+- `UITheme.java` acts as a centralized design system — all 26 files import it
+- Appointment status flow: Patient books → `Pending` → Doctor sets → `Confirmed` or `Cancelled`
 - Prescriptions are linked to appointments, not patients directly, preserving visit-level detail
+- Delete operations on Doctors and Patients cascade to remove all their appointments and prescriptions
+- Window size is standardized to 1024 x 700 across all 26 screens
 
 ---
 
